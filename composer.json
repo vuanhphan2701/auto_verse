@@ -1,0 +1,26 @@
+{
+  "name": "pav/auto-verse",
+  "description": "",
+  "type": "project",
+  "autoload": {
+    "psr-4": {
+      "Controllers\\": "controllers/",
+      "Models\\": "models/",
+      "Database\\": "database/",
+      "Repositories\\": "repositories",
+      "Resources\\": "resources/",
+      "Routes\\": "routes/"
+    },
+    "files": []
+  },
+  "require": {
+    "panda/panda-core": "2.0.5"
+  },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "git@github.com:long2604205/panda-core.git"
+    }
+  ]
+
+}
