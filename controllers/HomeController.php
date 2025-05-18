@@ -21,13 +21,11 @@ class HomeController
         foreach ($listType as $type) {
             $auto_type[$type] = $AutoModel->home($type);
         }
-        return view(
-            'Layout',
-            [
-                'contentView' => 'client/Home.php',
-                'auto_type' => $auto_type
-            ]
-        ); // Truyền dữ liệu cho View
+        $data=  [
+            'contentView' => 'client/Home.php',
+            'auto_type' => $auto_type
+        ];
+        return view('Layout', $data);
     }
 
 
