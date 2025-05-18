@@ -2,7 +2,6 @@
 
 namespace Controllers;
 
-use Models\AutoModel;
 use Repositories\AutoRepository;
 
 use Exception;
@@ -34,28 +33,22 @@ class HomeController
         $autoModel = new AutoRepository();
         $data =  $autoModel->detail($_GET['id']);
         $images = $autoModel->loadImages($_GET['id']);
-        
-        return view(
-            'Layout',
-            [
-                'contentView' => 'client/Detail.php',
-                'data' => $data,
-                'images' => $images
-            ]
-        ); // Truyền dữ liệu cho View
+        $data=[
+            'contentView' => 'client/Detail.php',
+            'data' => $data,
+            'images' => $images
+        ];
+        return view('Layout',$data);
     }
     public function List()
     {
         $autoRepository = new AutoRepository();
         $list = $autoRepository->list();
-
-        return view(
-            'Layout',
-            [
-                'contentView' => 'client/List.php',
-                'List' => $list
-            ]
-        ); // Truyền dữ liệu cho View
+        $data= [
+            'contentView' => 'client/List.php',
+            'List' => $list
+        ];
+        return view('Layout',$data); // Truyền dữ liệu cho View
     }
     public function news()
     {
