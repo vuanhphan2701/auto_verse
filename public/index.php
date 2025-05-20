@@ -12,7 +12,7 @@ try {
     echo $e->getMessage();
 }
 $request = new Request($_SERVER, $_GET, $_POST, $_FILES, $_COOKIE);
-$router = include '../routes/admin.php';
+$router = include '../routes/client.php';
 $method = $_SERVER['REQUEST_METHOD'];
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 try {

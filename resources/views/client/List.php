@@ -42,15 +42,14 @@
     <div class="car-grid">
         <!-- Car Item 1 -->
         <?php
-
-        foreach ($List as $auto): ?>
+        foreach ($list as $auto): ?>
             <div class="car-item">
                 <div class="car-image">
-                    <a href="/admin/detail/?id=<?= $auto->id ?>">
+                    <a href="/client/detail/?id=<?= $auto->id ?>">
                         <img src="/images/<?= $auto->image ?>" alt="Bugatti Chiron">
                     </a>
                     <div class="car-overlay">
-                        <a href="/admin/detail/?id=<?= $auto->id ?>" class="view-details">Xem Chi Tiết</a>
+                        <a href="/client/detail/?id=<?= $auto->id ?>" class="view-details">Xem Chi Tiết</a>
                     </div>
                 </div>
                 <div class="car-info">

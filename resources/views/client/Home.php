@@ -16,12 +16,12 @@
          <?php foreach ($auto_type['sport'] as $auto): ?>
              <div class="model-card">
                  <div class="model-image">
-                  <a href="/admin/detail/?id=<?= $auto['id']?>">    <img src="/images/<?= $auto['image'] ?>" alt="Bugatti Chiron">
+                  <a href="/client/detail/?id=<?= $auto['id']?>">    <img src="/images/<?= $auto['image'] ?>" alt="Bugatti Chiron">
                 </div>
                  <div class="model-info">
                      <h3><?= $auto['name'] ?></h3>
                      <p><?= $auto['title'] ?></p>
-                     <a href="/admin/detail/?id=<?= $auto['id'] ?>" class="model-link">TÌM HIỂU THÊM</a>
+                     <a href="/client/detail/?id=<?= $auto['id'] ?>" class="model-link">TÌM HIỂU THÊM</a>
                  </div>
              </div>
          <?php endforeach; ?>
@@ -39,7 +39,7 @@
          </div>
          <?php foreach($auto_type['new'] as $auto): ?>
              <div class="heritage-image">
-                <a href="/admin/detail/?id=<?= $auto['id'] ?>"> <img src="/images/<?= $auto['image'] ?>" alt="Di sản Bugatti">
+                <a href="/client/detail/?id=<?= $auto['id'] ?>"> <img src="/images/<?= $auto['image'] ?>" alt="Di sản Bugatti">
                 </a>
              </div>
        <?php endforeach ?>

@@ -16,7 +16,7 @@
     <?php include 'Header.php'; ?>
 
     <!-- content -->
-<?php include($contentView); ?>
+<?php include($content_view); ?>
     <!-- Footer -->
     <?php include 'Footer.php'; ?>
 
