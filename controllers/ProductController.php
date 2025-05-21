@@ -49,7 +49,7 @@ class ProductController
     }
 
     // lấy danh sách Auto
-    public function List()
+    public function list()
     {
         $list = $this->ProductRepository->list();
         $data= [
@@ -66,9 +66,45 @@ class ProductController
         return view('Layout',$data);
     }
 
+//------------------------------admin--------------------------------
+
+// lấy danh sách tất cả auto
+    public function listAdmin()
+    {
+        $listAuto = $this->ProductRepository->list();
+        $data= [
+            'list' => $listAuto,
+            'content_view' => 'admin/home.php'
+        ];
+        return view('LayoutAdmin',$data);
+    }
+
+    // xóa sản phẩm
+    public function delete(){
+        $id = $_GET['id'];
+        $this->ProductRepository->delete($id);
+        return redirect('/admin/home/');
+    }
 
 
+    // lây thông tin Edit sản phầm
+    public function getProductById(){
+        $id = $_GET['id'] ?? $_POST['id'] ?? null;
+        $detail= $this->ProductRepository->find($id);
+        $data = [
+            'detail'=>$detail,
+            'content_view'=>'admin/edit'
+        ];
+        return view('layoutAdmin', $data);
+    }
+    // edit sản phẩm
+    public function edit(){
 
+    }
+    // tạo thêm sản phẩm
+    public function create(){
+
+    }
 
     // public function deleteUser($id)
     // {

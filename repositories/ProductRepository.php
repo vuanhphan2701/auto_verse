@@ -39,4 +39,16 @@ class ProductRepository extends Repository
     }
 
 
+    // xóa sản phẩm
+    public function delete($id):void
+    {
+        $auto= $this->model->find($id);
+       // dd($auto);
+        if(isset($auto)){
+            $auto->delete();
+        }else{
+            echo 'do not exist user';
+        }
+    }
+
 }

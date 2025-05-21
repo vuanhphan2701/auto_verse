@@ -12,7 +12,15 @@ try {
     echo $e->getMessage();
 }
 $request = new Request($_SERVER, $_GET, $_POST, $_FILES, $_COOKIE);
-$router = include '../routes/client.php';
+
+$requestUri = $_SERVER['REQUEST_URI'];
+// Tách phần đầu tiên của URI
+$segments = explode('/', trim($requestUri, '/'));
+// Lấy prefix
+$prefix = $segments[0] ?? 'client';
+$router = include_once '../routes/'.$prefix.'.php';
+
+
 $method = $_SERVER['REQUEST_METHOD'];
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 try {

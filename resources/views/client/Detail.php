@@ -72,7 +72,7 @@
              </tr>
              <tr>
                  <td>Mô-men xoắn</td>
-                 <td><?= $data->mo_men_xoan ?></td>
+                 <td><?= isset($data->mo_men_xoan) ? $data->mo_men_xoan :''?> </td>
              </tr>
              <tr>
                  <td>Hộp số</td>
@@ -101,7 +101,7 @@
              </tr>
              <tr>
                  <td>Dung tích nhiên liệu</td>
-                 <td><?= $data->dung_tich_nhien_lieu ?></td>
+                 <td><?= isset($data->dung_tich_nhien_lieu) ? $data->dung_tich_nhien_lieu:'' ?></td>
              </tr>
          </table>
      </div>
