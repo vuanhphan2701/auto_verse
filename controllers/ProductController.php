@@ -2,69 +2,68 @@
 
 namespace Controllers;
 
-use Models\AutoModel;
-use Repositories\AutoRepository;
+use Repositories\ProductRepository;
 
 use Exception;
 
-class HomeController
+class ProductController
 {
     /**
      * @throws Exception
      */
+    private ProductRepository $ProducRepository;
 
-    public function home()
+    public function __construct()
     {
-        $AutoModel = new AutoRepository();
+        $this->ProductRepository = new ProductRepository();
+    }
+
+    //load giao diện index
+    public function index()
+    {
         $listType = ['sport', 'new', 'supercar', 'luxury'];
         $auto_type = [];
+
         foreach ($listType as $type) {
-            $auto_type[$type] = $AutoModel->home($type);
+            $auto_type[$type] = $this->ProductRepository->home($type);
         }
+
         $data=  [
-            'contentView' => 'client/Home.php',
+            'content_view' => 'client/home.php',
             'auto_type' => $auto_type
         ];
         return view('Layout', $data);
     }
 
-
-    public function Detail()
+    // láy chi thiết sản phẩm
+    public function detail()
     {
-        $autoModel = new AutoRepository();
-        $data =  $autoModel->detail($_GET['id']);
-        $images = $autoModel->loadImages($_GET['id']);
-        
-        return view(
-            'Layout',
-            [
-                'contentView' => 'client/Detail.php',
-                'data' => $data,
-                'images' => $images
-            ]
-        ); // Truyền dữ liệu cho View
+        $data =  $this->ProductRepository->detail($_GET['id']);
+        $images = $this->ProductRepository->loadImages($_GET['id']);
+        $data=[
+            'data' => $data,
+            'images' => $images,
+            'content_view' => 'client/Detail.php'
+        ];
+        return view('Layout',$data);
     }
+
+    // lấy danh sách Auto
     public function List()
     {
-        $autoRepository = new AutoRepository();
-        $list = $autoRepository->list();
-
-        return view(
-            'Layout',
-            [
-                'contentView' => 'client/List.php',
-                'List' => $list
-            ]
-        ); // Truyền dữ liệu cho View
+        $list = $this->ProductRepository->list();
+        $data= [
+            'list' => $list,
+            'content_view' => 'client/List.php'
+        ];
+        return view('Layout',$data);
     }
+
+    // load tin tức
     public function news()
     {
-        return view(
-            'Layout',
-            [
-                'contentView' => 'client/News.php'
-            ]
-        ); // Truyền dữ liệu cho View
+        $data =  ['content_view' => 'client/News.php'];
+        return view('Layout',$data);
     }
 
 
