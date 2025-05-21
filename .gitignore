@@ -2,4 +2,6 @@ vendor/
 composer.lock
 .idea/
 .env
+.iml
+.xml
 *.log
