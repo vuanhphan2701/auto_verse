@@ -11,7 +11,7 @@ class ProductController
     /**
      * @throws Exception
      */
-    private ProductRepository $ProducRepository;
+    private ProductRepository $ProductRepository;
 
     public function __construct()
     {
@@ -29,10 +29,10 @@ class ProductController
         }
 
         $data=  [
-            'content_view' => 'client/home.php',
+            'content_view' => 'home.php',
             'auto_type' => $auto_type
         ];
-        return view('Layout', $data);
+        return view('/client/Layout', $data);
     }
 
     // láy chi thiết sản phẩm
@@ -43,9 +43,9 @@ class ProductController
         $data=[
             'data' => $data,
             'images' => $images,
-            'content_view' => 'client/Detail.php'
+            'content_view' => 'Detail.php'
         ];
-        return view('Layout',$data);
+        return view('/client/Layout',$data);
     }
 
     // lấy danh sách Auto
@@ -54,29 +54,28 @@ class ProductController
         $list = $this->ProductRepository->list();
         $data= [
             'list' => $list,
-            'content_view' => 'client/List.php'
+            'content_view' => 'List.php'
         ];
-        return view('Layout',$data);
+        return view('/client/Layout',$data);
     }
 
     // load tin tức
     public function news()
     {
-        $data =  ['content_view' => 'client/News.php'];
-        return view('Layout',$data);
+        $data =  ['content_view' => 'News.php'];
+        return view('/client/Layout',$data);
     }
 
-//------------------------------admin--------------------------------
-
-// lấy danh sách tất cả auto
+//----------------------------------------------------Admin---------------------------------------------------
+    // lấy danh sách tất cả auto
     public function listAdmin()
     {
         $listAuto = $this->ProductRepository->list();
         $data= [
             'list' => $listAuto,
-            'content_view' => 'admin/home.php'
+            'content_view' => 'home.php'
         ];
-        return view('LayoutAdmin',$data);
+        return view('/admin/layout',$data);
     }
 
     // xóa sản phẩm
@@ -91,16 +90,21 @@ class ProductController
     public function getProductById(){
         $id = $_GET['id'] ?? $_POST['id'] ?? null;
         $detail= $this->ProductRepository->find($id);
+       // dd($detail);
         $data = [
-            'detail'=>$detail,
-            'content_view'=>'admin/edit'
+            'product'=>$detail,
+            'content_view'=>'edit.php'
         ];
-        return view('layoutAdmin', $data);
+        return view('/admin/layout', $data);
     }
-    // edit sản phẩm
-    public function edit(){
 
+    // edit sản phẩm
+    public function save(){
+        $field= ['id'=>8, 'name'=> 'a'];
+        $this->ProductRepository->save($field);
+        return redirect('/admin/home');
     }
+    
     // tạo thêm sản phẩm
     public function create(){
 

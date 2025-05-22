@@ -50,5 +50,12 @@ class ProductRepository extends Repository
             echo 'do not exist user';
         }
     }
+    // save
+    public function save(array $field): mixed
+    {
+        $auto= $this->model->find($field['id']);
+        $auto->name = $field['name'];
+        $auto->save();
+    }
 
 }
