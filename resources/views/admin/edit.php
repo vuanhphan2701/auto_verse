@@ -11,7 +11,7 @@
         </div>
         <div class="card-body">
             <?php if (isset($product) && $product): ?>
-                <form action="/admin/product/update" method="POST" enctype="multipart/form-data">
+                <form action="/admin/save/" method="post" >
                     <input type="hidden" name="id" value="<?= htmlspecialchars($product->id ?? '') ?>">
 
                     <div class="form-group">

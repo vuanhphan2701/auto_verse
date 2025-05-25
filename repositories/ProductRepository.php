@@ -11,51 +11,56 @@ class ProductRepository extends Repository
     protected mixed $model = Product::class;
 
     //load giao diện index
-    public function home($auto_type):array
+    public function getProductByType($type): array
     {
-     return DB::table('auto')
-            ->where('auto_type','=',$auto_type)
+        return DB::table('auto')
+            ->where('auto_type', '=', $type)
             ->get();
     }
 
     // láy chi thiết sản phẩm
-    public function detail($id):object
+    public function detail($id): object
     {
-         return $this->model->find($id);
+        return $this->model->find($id);
     }
 
-    public function loadImages($id):array
+    public function loadImages($id): array
     {
-       $sql='SELECT * FROM images INNER JOIN auto 
+        $sql = 'SELECT * FROM images INNER JOIN auto 
              ON images.image_id = auto.id
              WHERE auto.id = ?';
-       return DB::query($sql,[$id]);
+
+        return DB::query($sql, [$id]);
     }
 
     // lấy danh sách Auto
-    public function list():array
+    public function list(): array
     {
-      return $this->model->all();
+        return $this->model->all();
     }
 
 
     // xóa sản phẩm
-    public function delete($id):void
+    public function delete($id): void
     {
-        $auto= $this->model->find($id);
-       // dd($auto);
-        if(isset($auto)){
-            $auto->delete();
-        }else{
-            echo 'do not exist user';
+        $product = $this->model->find($id);
+
+        if (isset($product)) {
+            $product->delete();
+        } else {
+            throw new \Exception("Product not found");
         }
     }
-    // save
-    public function save(array $field): mixed
-    {
-        $auto= $this->model->find($field['id']);
-        $auto->name = $field['name'];
-        $auto->save();
-    }
 
+    // lưu update &insert sản phẩm
+    public function save(array $fields): mixed
+    {
+        foreach ($fields as $key => $value) {
+            $this->model->$key = $value;
+        }
+
+        $this->model->save();
+
+        return redirect('/admin/home/');
+    }
 }
