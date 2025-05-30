@@ -2,7 +2,7 @@
 <div class="container-fluid">
 
     <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-gray-800">Chỉnh sửa Sản phẩm</h1>
+    <h1 class="h3 mb-4 text-gray-800">Thêm Sản phẩm</h1>
 
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -10,35 +10,28 @@
             <a href="/admin/home/" class="btn btn-secondary btn-sm">Quay lại Danh sách</a>
         </div>
         <div class="card-body">
-            <?php if (isset($product) && $product): ?>
                 <form action="/admin/save/" method="post" enctype="multipart/form-data">
-                    <input type="hidden" name="id" value="<?= htmlspecialchars($product->id ?? '') ?>">
 
                     <div class="form-group">
                         <label for="name">Tên sản phẩm (Name)</label>
-                        <input type="text" class="form-control" id="name" name="name" value="<?= htmlspecialchars($product->name ?? '') ?>" required>
+                        <input type="text" class="form-control" id="name" name="name" value="" required>
                     </div>
 
                     <div class="form-group">
                         <label for="title">Tiêu đề (Title)</label>
-                        <input type="text" class="form-control" id="title" name="title" value="<?= htmlspecialchars($product->title ?? '') ?>">
+                        <input type="text" class="form-control" id="title" name="title" value="">
                     </div>
 
                     <div class="form-group">
                         <label for="description">Mô tả (Description)</label>
-                        <textarea class="form-control" id="description" name="description" rows="3"><?= htmlspecialchars($product->description ?? '') ?></textarea>
+                        <textarea class="form-control" id="description" name="description" rows="3"></textarea>
                     </div>
 
                     <div class="form-group">
                         <label for="image">Hình ảnh (Image)</label>
                         <br>
-                        <?php if (!empty($product->image)): ?>
-                            <img src="/images/<?= htmlspecialchars($product->image) ?>"
-                                alt="<?= htmlspecialchars($product->name ?? 'Product Image') ?>"
-                                style="width: 150px; height: auto; object-fit: cover; margin-bottom: 10px;">
-                        <?php else: ?>
+                            <img src="/images/" alt="" style="width: 150px; height: auto; object-fit: cover; margin-bottom: 10px;">
                             <p>Không có hình ảnh hiện tại.</p>
-                        <?php endif; ?>
                         <input type="file" class="form-control-file" id="image" name="image">
                         <small class="form-text text-muted">Để trống nếu không muốn thay đổi hình ảnh hiện tại.</small>
                     </div>
@@ -46,60 +39,55 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="auto_type">Loại xe (Type)</label>
-                            <input type="text" class="form-control" id="auto_type" name="auto_type" value="<?= htmlspecialchars($product->auto_type ?? '') ?>">
+                            <input type="text" class="form-control" id="auto_type" name="auto_type" value="">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="engine">Động cơ (Engine)</label>
-                            <input type="text" class="form-control" id="engine" name="engine" value="<?= htmlspecialchars($product->engine ?? '') ?>">
+                            <input type="text" class="form-control" id="engine" name="engine" value="">
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="power">Công suất (Power)</label>
-                            <input type="text" class="form-control" id="power" name="power" value="<?= htmlspecialchars($product->power ?? '') ?>">
+                            <input type="text" class="form-control" id="power" name="power" value="">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="hop_so">Hộp số (Gearbox)</label>
-                            <input type="text" class="form-control" id="hop_so" name="hop_so" value="<?= htmlspecialchars($product->hop_so ?? '') ?>">
+                            <input type="text" class="form-control" id="hop_so" name="hop_so" value="">
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="dan_dong">Dẫn động (Drivetrain)</label>
-                            <input type="text" class="form-control" id="dan_dong" name="dan_dong" value="<?= htmlspecialchars($product->dan_dong ?? '') ?>">
+                            <input type="text" class="form-control" id="dan_dong" name="dan_dong" value="">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="trong_luong">Trọng lượng (Weight)</label>
-                            <input type="text" class="form-control" id="trong_luong" name="trong_luong" value="<?= htmlspecialchars($product->trong_luong ?? '') ?>">
+                            <input type="text" class="form-control" id="trong_luong" name="trong_luong" value="">
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group col-md-4">
                             <label for="chieu_dai">Chiều dài (Length)</label>
-                            <input type="text" class="form-control" id="chieu_dai" name="chieu_dai" value="<?= htmlspecialchars($product->chieu_dai ?? '') ?>">
+                            <input type="text" class="form-control" id="chieu_dai" name="chieu_dai" value="">
                         </div>
                         <div class="form-group col-md-4">
                             <label for="chieu_rong">Chiều rộng (Width)</label>
-                            <input type="text" class="form-control" id="chieu_rong" name="chieu_rong" value="<?= htmlspecialchars($product->chieu_rong ?? '') ?>">
+                            <input type="text" class="form-control" id="chieu_rong" name="chieu_rong" value="">
                         </div>
                         <div class="form-group col-md-4">
                             <label for="chieu_cao">Chiều cao (Height)</label>
-                            <input type="text" class="form-control" id="chieu_cao" name="chieu_cao" value="<?= htmlspecialchars($product->chieu_cao ?? '') ?>">
+                            <input type="text" class="form-control" id="chieu_cao" name="chieu_cao" value="">
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Cập nhật Sản phẩm</button>
+                    <button type="submit" class="btn btn-primary">Thêm Sản phẩm</button>
                     <a href="/admin/home/" class="btn btn-secondary">Hủy</a>
                 </form>
-            <?php else: ?>
-                <div class="alert alert-danger" role="alert">
-                    Không tìm thấy thông tin sản phẩm để chỉnh sửa. Vui lòng kiểm tra lại ID sản phẩm.
-                </div>
-                <a href="/admin/home/" class="btn btn-primary">Quay lại Danh sách</a>
-            <?php endif; ?>
+
         </div>
     </div>
 
@@ -109,7 +97,7 @@
 <script>
     // Optional: Client-side validation or enhancements can be added here.
     // For example, previewing the image before upload.
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         const imageInput = document.getElementById('image');
         if (imageInput) {
             imageInput.addEventListener('change', function(event) {
@@ -127,28 +115,3 @@
 </script>
 
 
-<?php
-/*
-Để sử dụng view này, trong controller của bạn, bạn cần:
-1. Lấy ID sản phẩm từ request (ví dụ: $_GET['id'] từ URL /admin/product/edit?id=X).
-2. Truy vấn cơ sở dữ liệu để lấy thông tin chi tiết của sản phẩm dựa trên ID.
-3. Truyền đối tượng sản phẩm ($product) vào view này.
-4. Thiết lập biến $content_view trong file layout của bạn để trỏ đến 'admin/edit_product.php'.
-
-Ví dụ (trong controller):
-
-```php
- // Giả sử bạn có một hàm getProductById($id) để lấy sản phẩm
- $productId = $_GET['id'] ?? null;
- $product = null;
- if ($productId) {
-     $product = $this->productModel->getProductById($productId); // Thay thế bằng logic lấy model của bạn
- }
-
- // ...
- $data['product'] = $product;
- $data['content_view'] = 'admin/edit_product.php'; // Đường dẫn đến view này
- $this->load->view('admin/layout', $data); // Tải layout chính, truyền dữ liệu và content_view
-```
-*/
-?>

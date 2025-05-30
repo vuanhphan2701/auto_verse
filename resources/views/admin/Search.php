@@ -1,3 +1,4 @@
+
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
@@ -36,15 +37,17 @@
                     </thead>
 
                     <tbody>
-                        <?php if (!empty($list) && is_array($list) && count($list) > 0): ?>
-                            <?php foreach ($list as $product): ?>
+
+                        <?php
+                        if (!empty($search) && is_array($search) && count($search) > 0): ?>
+                            <?php foreach ($search as $product): ?>
                                 <tr>
-                                    <td><?= htmlspecialchars($product->id ?? 'N/A') ?></td>
-                                    <td><?= htmlspecialchars($product->name ?? 'N/A') ?></td>
-                                    <td><?= htmlspecialchars($product->title ?? 'N/A') ?></td>
+                                    <td><?= htmlspecialchars($product['id'] ?? 'N/A') ?></td>
+                                    <td><?= htmlspecialchars($product['name'] ?? 'N/A') ?></td>
+                                    <td><?= htmlspecialchars($product['title'] ?? 'N/A') ?></td>
                                     <td>
                                         <?php
-                                        $description = htmlspecialchars($product->description ?? 'N/A');
+                                        $description = htmlspecialchars($product['description'] ?? 'N/A');
                                         if (strlen($description) > 50) {
                                             echo substr($description, 0, 47) . '...';
                                         } else {
@@ -53,25 +56,25 @@
                                         ?>
                                     </td>
                                     <td>
-                                        <?php if (!empty($product->image)): ?>
-                                            <img src="/images/<?= htmlspecialchars($product->image) ?>" alt="<?= htmlspecialchars($product->name ?? 'Product Image') ?>" style="width: 100px; height: auto; object-fit: cover;">
+                                        <?php if (!empty($product['image'])): ?>
+                                            <img src="/images/<?= htmlspecialchars($product['image']) ?>" alt="<?= htmlspecialchars($product['name'] ?? 'Product Image') ?>" style="width: 100px; height: auto; object-fit: cover;">
                                             <!-- Adjust /assets/images/ path as per your project structure -->
                                         <?php else: ?>
                                             No Image
                                         <?php endif; ?>
                                     </td>
-                                    <td><?= htmlspecialchars($product->auto_type ?? 'N/A') ?></td>
-                                    <td><?= htmlspecialchars($product->engine ?? 'N/A') ?></td>
-                                    <td><?= htmlspecialchars($product->power ?? 'N/A') ?></td>
-                                    <td><?= htmlspecialchars($product->hop_so ?? 'N/A') ?></td>
-                                    <td><?= htmlspecialchars($product->dan_dong ?? 'N/A') ?></td>
-                                    <td><?= htmlspecialchars($product->trong_luong ?? 'N/A') ?></td>
-                                    <td><?= htmlspecialchars($product->chieu_dai ?? 'N/A') ?></td>
-                                    <td><?= htmlspecialchars($product->chieu_rong ?? 'N/A') ?></td>
-                                    <td><?= htmlspecialchars($product->chieu_cao ?? 'N/A') ?></td>
+                                    <td><?= htmlspecialchars($product['auto_type'] ?? 'N/A') ?></td>
+                                    <td><?= htmlspecialchars($product['engine'] ?? 'N/A') ?></td>
+                                    <td><?= htmlspecialchars($product['power'] ?? 'N/A') ?></td>
+                                    <td><?= htmlspecialchars($product['hop_so'] ?? 'N/A') ?></td>
+                                    <td><?= htmlspecialchars($product['dan_dong'] ?? 'N/A') ?></td>
+                                    <td><?= htmlspecialchars($product['trong_luong'] ?? 'N/A') ?></td>
+                                    <td><?= htmlspecialchars($product['chieu_dai'] ?? 'N/A') ?></td>
+                                    <td><?= htmlspecialchars($product['chieu_rong'] ?? 'N/A') ?></td>
+                                    <td><?= htmlspecialchars($product['chieu_cao'] ?? 'N/A') ?></td>
                                     <td>
-                                        <a href="/admin/edit/?id=<?= htmlspecialchars($product->id ?? '') ?>" class="btn btn-sm btn-info">Edit</a>
-                                        <a href="/admin/delete/?id=<?= htmlspecialchars($product->id ?? '') ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this product?');">Delete</a>
+                                        <a href="/admin/edit/?id=<?= htmlspecialchars($product['id'] ?? '') ?>" class="btn btn-sm btn-info">Edit</a>
+                                        <a href="/admin/delete/?id=<?= htmlspecialchars($product['id'] ?? '') ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this product?');">Delete</a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>

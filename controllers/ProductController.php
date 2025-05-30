@@ -73,6 +73,7 @@ class ProductController
     }
 
     //----------------------------------------------------Admin---------------------------------------------------
+
     // lấy danh sách tất cả auto
     public function listAdmin()
     {
@@ -80,10 +81,10 @@ class ProductController
 
         $data = [
             'list' => $listAuto,
-            'content_view' => 'home.php'
+            'content_view' => 'Home.php'
         ];
 
-        return view('/admin/layout', $data);
+        return view('/admin/Layout', $data);
     }
 
     // xóa sản phẩm
@@ -95,7 +96,6 @@ class ProductController
         return redirect('/admin/home/');
     }
 
-
     // lây thông tin Edit sản phầm
     public function getProductById()
     {
@@ -104,45 +104,45 @@ class ProductController
 
         $data = [
             'product' => $detail,
-            'content_view' => 'edit.php'
+            'content_view' => 'Edit.php'
         ];
 
-        return view('/admin/layout', $data);
+        return view('/admin/Layout', $data);
     }
 
     // edit sản phẩm
     public function save()
     {
         $productId = $_POST['id'] ?? null;
-        $imageName = null;
-        $uploadMessage = '';
 
-        if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-            $uploadDirectory = 'images';
+        $avt = $_FILES['image'] ?? null;
 
-            $imageName = $this->handleFileUpload(
-                $_FILES['image'],
-                $uploadMessage,
-                $uploadDirectory
+        $imgMessenger = '';
+
+        // lấy folder lưu trữ hình ảnh
+        $uploadTargetDirectory = rtrim($_SERVER['DOCUMENT_ROOT'], DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . 'images';
+
+        if (isset($_FILES['image']['error']) && $_FILES['image']['error'] == 0) {
+            $avt = $this->myUpload(
+                $_FILES['image'] ?? null,
+                $imgMessenger,
+                $uploadTargetDirectory,
             );
-            if ($imageName === false) {
-
-                throw new Exception($uploadMessage);
-            }
-        } elseif ($productId) {
-            $existingProduct = $this->productRepository->detail($productId);
-           
-            if ($existingProduct) {
-                $imageName = $existingProduct->image; 
+        } else {
+            //  dd($avt);
+            if (!$_POST['avt_2']) {
+                unlink($avt);
+                $avt = '';
             }
         }
 
+        // lấy giá trị user chỉnh sửa
         $fields = [
             'id' => $productId,
             'name' => $_POST['name'] ?? null,
             'title' => $_POST['title'] ?? null,
             'description' => $_POST['description'] ?? null,
-            'image' => $imageName,
+            'image' => $avt,
             'auto_type' => $_POST['auto_type'] ?? null,
             'engine' => $_POST['engine'] ?? null,
             'power' => $_POST['power'] ?? null,
@@ -154,44 +154,41 @@ class ProductController
             'chieu_cao' => $_POST['chieu_cao'] ?? null
         ];
 
-        if (is_null($fields['id'])) {
-            unset($fields['id']);
-        }
-
+        // lưu thông tin sản phẩm
         $this->productRepository->save($fields);
 
         return redirect('/admin/home/');
     }
 
-    private function handleFileUpload(array $file, string &$uploadMessage = '', string $destinationFolder, array $allowedExtensions = ['.jpg', '.png', '.jpeg', '.gif', '.webp'], string $fileNamePrefix = 'product_', int $maxSizeMB = 2): string|false
+    // upload hình ảnh
+    function myUpload($file, &$imgMessenger = '', $forder, $type = ['.jpg', '.png', '.jpeg', '.ico', '.svg', '.webp'], $name = 'file_', $maxsize = 2)
     {
-        if ($file['error'] !== UPLOAD_ERR_OK) {
-            $uploadMessage = 'File upload error: ' . $file['error'];
-            return false;
-        }
+        if (isset($file['error'], $file['tmp_name']) && $file['error'] == 0 && $file['tmp_name']) {
 
-        $maxSizeBytes = $maxSizeMB * 1024 * 1024;
-        if ($file['size'] <= 0 || $file['size'] > $maxSizeBytes) {
-            $uploadMessage = 'File size must be between 0 and ' . $maxSizeMB . 'MB.';
-            return false;
-        }
+            $size1 = $maxsize * 1024 * 1024;
 
-        $extension = strtolower(strrchr($file['name'], '.'));
-        if (!in_array($extension, $allowedExtensions)) {
-            $uploadMessage = 'Invalid file type. Allowed types: ' . implode(', ', $allowedExtensions);
-            return false;
-        }
+            if ($file['size'] < 0 && $file['size'] >= $size1) {
+                $imgmsg = 'file need to < ' . $maxsize . 'mb';
+                return false;
+            }
 
-        
-        $targetDirectory = rtrim($destinationFolder, DIRECTORY_SEPARATOR); 
+            $ext = strtolower(substr($file['name'], strrpos($file['name'], '.')));
 
-        $newFileName = $fileNamePrefix . time() . uniqid() . $extension;
-        $fullPath = $targetDirectory . DIRECTORY_SEPARATOR . $newFileName;
+            if (!in_array($ext, $type)) {
+                $imgmsg = 'chi cho phep dinh dang sau ' . implode(',', $type);
+                return false;
+            }
 
-     
-        if (move_uploaded_file($file['tmp_name'], $fullPath)) { 
-            return $newFileName; 
-            $uploadMessage = 'Failed to move uploaded file. Check permissions and path: ' . $fullPath;
+            $fullpath = $forder . '/' . $name . time() . $ext;
+
+            if (move_uploaded_file($file['tmp_name'], $fullpath)) {
+                return basename($fullpath);
+            } else {
+                $imgmsg = 'upload ko thanh cong';
+                return false;
+            }
+        } else {
+            $imgmsg = 'file ko hop le';
             return false;
         }
     }
@@ -199,7 +196,21 @@ class ProductController
     // tạo thêm sản phẩm
     public function create()
     {
-        $data = ['content_view' => 'create.php'];
-        return view('admin/layout', $data);
+        $data = ['content_view' => 'Create.php'];
+        return view('admin/Layout', $data);
+    }
+
+    // tim kiếm sản phẩm
+    public function search()
+    {
+        $search = $this->productRepository->search($_POST['name'] ?? null);
+
+        $data = [
+            'search' => $search,
+            'key' => $_POST['name'] ?? null,
+            'content_view' => 'Search.php'
+        ];
+
+        return view('/admin/Layout', $data);
     }
 }
