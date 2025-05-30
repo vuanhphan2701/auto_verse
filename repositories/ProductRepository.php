@@ -59,8 +59,15 @@ class ProductRepository extends Repository
             $this->model->$key = $value;
         }
 
-        $this->model->save();
+        return $this->model->save();
+    }
 
-        return redirect('/admin/home/');
+
+    // tìm kiếm sản phẩm
+    public function search($name): array
+    {
+        return  DB::table('auto')
+            ->where('name', 'LIKE', "%{$name}%")
+            ->get();
     }
 }

@@ -11,7 +11,7 @@
         </div>
         <div class="card-body">
             <?php if (isset($product) && $product): ?>
-                <form action="/admin/save/" method="post" >
+                <form action="/admin/save/" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="id" value="<?= htmlspecialchars($product->id ?? '') ?>">
 
                     <div class="form-group">
@@ -33,7 +33,9 @@
                         <label for="image">Hình ảnh (Image)</label>
                         <br>
                         <?php if (!empty($product->image)): ?>
-                            <img src="/images/<?= htmlspecialchars($product->image) ?>" alt="<?= htmlspecialchars($product->name ?? 'Product Image') ?>" style="width: 150px; height: auto; object-fit: cover; margin-bottom: 10px;">
+                            <img src="/images/<?= htmlspecialchars($product->image) ?>"
+                                alt="<?= htmlspecialchars($product->name ?? 'Product Image') ?>"
+                                style="width: 150px; height: auto; object-fit: cover; margin-bottom: 10px;">
                         <?php else: ?>
                             <p>Không có hình ảnh hiện tại.</p>
                         <?php endif; ?>
@@ -107,7 +109,7 @@
 <script>
     // Optional: Client-side validation or enhancements can be added here.
     // For example, previewing the image before upload.
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
         const imageInput = document.getElementById('image');
         if (imageInput) {
             imageInput.addEventListener('change', function(event) {
