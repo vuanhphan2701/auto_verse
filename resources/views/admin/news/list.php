@@ -30,27 +30,28 @@
                     </thead>
 
                     <tbody>
-                            <?php foreach ($newsList as $newsItem): ?>
-                                <tr>
-                                    <td><?= $newsItem->id ?></td>
-                                    <td><?= isset($newsItem->image) ? $newsItem->image : 'N/A' ?> </td>
-                                    <td><?= $newsItem->title ?></td>
-                                    <td>
-                                        <?= $newsItem->description ?>
-                                    </td>
-                                    <td>
-                                        <?= $newsItem->url ?>
-                                    </td>
-                                    <td><?= htmlspecialchars(isset($newsItem->created_at) ? (is_string($newsItem->created_at) ? $newsItem->created_at : $newsItem->created_at->format('Y-m-d H:i:s')) : (isset($newsItem['created_at']) ? $newsItem['created_at'] : 'N/A')) ?></td>
-                                    <td><?= htmlspecialchars(isset($newsItem->updated_at) ? (is_string($newsItem->updated_at) ? $newsItem->updated_at : $newsItem->updated_at->format('Y-m-d H:i:s')) : (isset($newsItem['updated_at']) ? $newsItem['updated_at'] : 'N/A')) ?></td>
-                                    <td>
-                                        <!-- TODO: Cập nhật links khi có trang sửa và chức năng xóa tin tức -->
+                        <?php foreach ($newsList as $newsItem): ?>
+                            <tr>
+                                <td><?= $newsItem->id ?></td>
+                                <td> <img src="/images/<?= $newsItem->image ?>" style="width: 150px; height: auto; object-fit: cover;" alt=""> </td>
+                                <td><?= $newsItem->title ?></td>
+                                <td>
+                                    <?= $newsItem->description ?>
+                                </td>
+                                <td>
+                                    <?= $newsItem->url ?>
+                                </td>
+                                <td><?= htmlspecialchars(isset($newsItem->created_at) ? (is_string($newsItem->created_at) ? $newsItem->created_at : $newsItem->created_at->format('Y-m-d H:i:s')) : (isset($newsItem['created_at']) ? $newsItem['created_at'] : 'N/A')) ?></td>
+                                <td><?= htmlspecialchars(isset($newsItem->updated_at) ? (is_string($newsItem->updated_at) ? $newsItem->updated_at : $newsItem->updated_at->format('Y-m-d H:i:s')) : (isset($newsItem['updated_at']) ? $newsItem['updated_at'] : 'N/A')) ?></td>
+                                <td>
+                                    <div class="btn-group btn-group-sm" role="group" aria-label="News item actions">
                                         <a href="/admin/news/edit/?id=<?= htmlspecialchars($newsItem->id ?? ($newsItem['id'] ?? '')) ?>" class="btn btn-sm btn-info">Edit</a>
                                         <a href="/admin/news/delete/?id=<?= htmlspecialchars($newsItem->id ?? ($newsItem['id'] ?? '')) ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this news item?');">Delete</a>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
-                       
+                                    </div>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+
 
                     </tbody>
                 </table>

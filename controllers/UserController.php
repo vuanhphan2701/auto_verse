@@ -1,18 +1,22 @@
 <?php
+
 namespace Controllers;
-class UserController{
-    
-    public function login(){
 
-    $data = ['content_view'=>'admin/login.php'];
+class UserController
+{
 
-    return view('layoutAdmin',$data);
+    public function login()
+    {
+        $data = ['content_view' => 'user/login.php'];
+        dd($_POST);
+
+        return view('admin/LayoutLogin', $data);
     }
 
-    public function index(){
+    public function index()
+    {
 
-        $data=['content_view'=>'admin/home.php'];
-        return view('layoutAdmin',$data);
+        $data = ['content_view' => '/home.php'];
+        return view('layoutAdmin', $data);
     }
-
 }

@@ -15,4 +15,38 @@ class NewsRepository extends Repository
     {
         return $this->model->all();
     }
+
+    // xóa news
+    public function delete($id): void
+    {
+        $news = $this->model->find($id);
+        if ($news) {
+            $news->delete();
+        } else {
+            throw new \Exception("News with ID {$id} not found.");
+        }
+    }
+
+    // lấy thông tin bài báo theo id
+    public function getNewsById($id): object
+    {
+        return $this->model->find($id);
+    }
+
+    // save news
+    public function save(array $fields): mixed
+    {
+        foreach ($fields as $key => $value) {
+            $this->model->$key = $value;
+        }
+        return $this->model->save();
+    }
+
+    // search news
+    public function search($title): array
+    {
+        return DB::table('news')
+            ->where('title', 'LIKE', "%{$title}%")
+            ->get();
+    }
 }

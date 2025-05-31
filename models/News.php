@@ -10,6 +10,7 @@ class News extends Model
     protected string $primaryKey = 'id';
     protected array $fillable = [
         'id',
+        'image',
         'title',
         'description',
         'url',

@@ -81,7 +81,7 @@ class ProductController
 
         $data = [
             'list' => $listAuto,
-            'content_view' => 'Home.php'
+            'content_view' => 'product/Home.php'
         ];
 
         return view('/admin/Layout', $data);
@@ -104,13 +104,13 @@ class ProductController
 
         $data = [
             'product' => $detail,
-            'content_view' => 'Edit.php'
+            'content_view' => 'product/Edit.php'
         ];
 
         return view('/admin/Layout', $data);
     }
 
-    // edit sản phẩm
+    // lưu sản phẩm
     public function save()
     {
         $productId = $_POST['id'] ?? null;
@@ -129,7 +129,6 @@ class ProductController
                 $uploadTargetDirectory,
             );
         } else {
-            //  dd($avt);
             if (!$_POST['avt_2']) {
                 unlink($avt);
                 $avt = '';
@@ -160,7 +159,31 @@ class ProductController
         return redirect('/admin/home/');
     }
 
-    // upload hình ảnh
+    // tạo thêm sản phẩm
+    public function create()
+    {
+        $data = ['content_view' => 'product/Create.php'];
+        return view('admin/Layout', $data);
+    }
+
+    // tim kiếm sản phẩm
+    public function search()
+    {
+        $search = $this->productRepository->search($_POST['name'] ?? null);
+
+        $data = [
+            'search' => $search,
+            'key' => $_POST['name'] ?? null,
+            'content_view' => 'product/Search.php'
+        ];
+
+        return view('/admin/Layout', $data);
+    }
+
+
+
+    
+    //--------------------------------------- upload file-----------------------------------
     function myUpload($file, &$imgMessenger = '', $forder, $type = ['.jpg', '.png', '.jpeg', '.ico', '.svg', '.webp'], $name = 'file_', $maxsize = 2)
     {
         if (isset($file['error'], $file['tmp_name']) && $file['error'] == 0 && $file['tmp_name']) {
@@ -191,26 +214,5 @@ class ProductController
             $imgmsg = 'file ko hop le';
             return false;
         }
-    }
-
-    // tạo thêm sản phẩm
-    public function create()
-    {
-        $data = ['content_view' => 'Create.php'];
-        return view('admin/Layout', $data);
-    }
-
-    // tim kiếm sản phẩm
-    public function search()
-    {
-        $search = $this->productRepository->search($_POST['name'] ?? null);
-
-        $data = [
-            'search' => $search,
-            'key' => $_POST['name'] ?? null,
-            'content_view' => 'Search.php'
-        ];
-
-        return view('/admin/Layout', $data);
     }
 }

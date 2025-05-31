@@ -127,28 +127,3 @@
 </script>
 
 
-<?php
-/*
-Để sử dụng view này, trong controller của bạn, bạn cần:
-1. Lấy ID sản phẩm từ request (ví dụ: $_GET['id'] từ URL /admin/product/edit?id=X).
-2. Truy vấn cơ sở dữ liệu để lấy thông tin chi tiết của sản phẩm dựa trên ID.
-3. Truyền đối tượng sản phẩm ($product) vào view này.
-4. Thiết lập biến $content_view trong file layout của bạn để trỏ đến 'admin/edit_product.php'.
-
-Ví dụ (trong controller):
-
-```php
- // Giả sử bạn có một hàm getProductById($id) để lấy sản phẩm
- $productId = $_GET['id'] ?? null;
- $product = null;
- if ($productId) {
-     $product = $this->productModel->getProductById($productId); // Thay thế bằng logic lấy model của bạn
- }
-
- // ...
- $data['product'] = $product;
- $data['content_view'] = 'admin/edit_product.php'; // Đường dẫn đến view này
- $this->load->view('admin/layout', $data); // Tải layout chính, truyền dữ liệu và content_view
-```
-*/
-?>
